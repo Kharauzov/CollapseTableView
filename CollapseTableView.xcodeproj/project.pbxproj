@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4901DBBD22ABC747008CC400 /* CollapseSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4901DBBB22ABC747008CC400 /* CollapseSectionHeader.swift */; };
+		4901DBBE22ABC747008CC400 /* CollapseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4901DBBC22ABC747008CC400 /* CollapseTableView.swift */; };
 		4922F97622AAE53700967BB5 /* CollapseTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4922F97422AAE53700967BB5 /* CollapseTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		49F27E9D22ABB97200EC34FC /* CollapseSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F27E9B22ABB97200EC34FC /* CollapseSectionHeader.swift */; };
-		49F27E9E22ABB97200EC34FC /* CollapseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F27E9C22ABB97200EC34FC /* CollapseTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4901DBBB22ABC747008CC400 /* CollapseSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseSectionHeader.swift; sourceTree = "<group>"; };
+		4901DBBC22ABC747008CC400 /* CollapseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseTableView.swift; sourceTree = "<group>"; };
 		4922F97122AAE53700967BB5 /* CollapseTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CollapseTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4922F97422AAE53700967BB5 /* CollapseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollapseTableView.h; sourceTree = "<group>"; };
 		4922F97522AAE53700967BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49F27E9B22ABB97200EC34FC /* CollapseSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseSectionHeader.swift; sourceTree = "<group>"; };
-		49F27E9C22ABB97200EC34FC /* CollapseTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapseTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +31,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4901DBBA22ABC747008CC400 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4901DBBB22ABC747008CC400 /* CollapseSectionHeader.swift */,
+				4901DBBC22ABC747008CC400 /* CollapseTableView.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		4922F96722AAE53700967BB5 = {
 			isa = PBXGroup;
 			children = (
@@ -50,21 +59,12 @@
 		4922F97322AAE53700967BB5 /* CollapseTableView */ = {
 			isa = PBXGroup;
 			children = (
-				49F27E9A22ABB97200EC34FC /* Source */,
+				4901DBBA22ABC747008CC400 /* Source */,
 				4922F97422AAE53700967BB5 /* CollapseTableView.h */,
 				4922F97522AAE53700967BB5 /* Info.plist */,
 			);
 			path = CollapseTableView;
 			sourceTree = "<group>";
-		};
-		49F27E9A22ABB97200EC34FC /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				49F27E9B22ABB97200EC34FC /* CollapseSectionHeader.swift */,
-				49F27E9C22ABB97200EC34FC /* CollapseTableView.swift */,
-			);
-			path = Source;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -144,8 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49F27E9E22ABB97200EC34FC /* CollapseTableView.swift in Sources */,
-				49F27E9D22ABB97200EC34FC /* CollapseSectionHeader.swift in Sources */,
+				4901DBBE22ABC747008CC400 /* CollapseTableView.swift in Sources */,
+				4901DBBD22ABC747008CC400 /* CollapseSectionHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
