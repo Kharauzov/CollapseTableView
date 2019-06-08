@@ -57,6 +57,85 @@ open class CollapseTableView: UITableView {
         }
         return super.responds(to: aSelector) || collapseDataSource?.responds(to: aSelector) ?? false || collapseDelegate?.responds(to: aSelector) ?? false
     }
+    
+    // MARK: Public methods
+    
+    public func toggleSection(_ sectionIndex: Int, sectionView: UIView, animated: Bool) {
+        if sectionIndex >= sectionStates.count {
+            return
+        }
+        let sectionIsOpen = sectionStates[sectionIndex]
+        let collapseSectionHeader = sectionView as? CollapseSectionHeader
+        if sectionIsOpen {
+            collapseSectionHeader?.handleChangeToCloseState()
+            closeSection(sectionIndex, animated: animated)
+            didTapSectionHeaderView?(sectionIndex, false)
+        } else {
+            collapseSectionHeader?.handleChangeToOpenState()
+            openSection(sectionIndex, animated: animated)
+            didTapSectionHeaderView?(sectionIndex, true)
+        }
+    }
+    
+    public func openSection(_ sectionIndex: Int, animated: Bool) {
+        if sectionIndex >= sectionStates.count || sectionStates[sectionIndex] {
+            return
+        }
+        setSectionAtIndex(sectionIndex, open: true)
+        if animated {
+            if let indexPathsToInsert = indexPathsForRowsInSectionAtIndex(sectionIndex) {
+                insertRows(at: indexPathsToInsert, with: .top)
+            }
+        } else {
+            reloadData()
+        }
+    }
+    
+    public func closeSection(_ sectionIndex: Int, animated: Bool) {
+        setSectionAtIndex(sectionIndex, open: false)
+        if animated {
+            if let indexPathsToDelete = indexPathsForRowsInSectionAtIndex(sectionIndex) {
+                deleteRows(at: indexPathsToDelete, with: .top)
+            }
+        } else {
+            reloadData()
+        }
+    }
+    
+    public func isOpenSection(_ sectionIndex: Int) -> Bool {
+        if sectionIndex >= sectionStates.count {
+            return false
+        }
+        return sectionStates[sectionIndex]
+    }
+    
+    // MARK: Private methods
+    
+    private func setSectionAtIndex(_ sectionIndex: Int, open: Bool) {
+        if sectionIndex >= sectionStates.count {
+            return
+        }
+        sectionStates[sectionIndex] = open
+    }
+    
+    private func indexPathsForRowsInSectionAtIndex(_ sectionIndex: Int) -> [IndexPath]? {
+        if sectionIndex >= sectionStates.count {
+            return nil
+        }
+        let numberOfRows = collapseDataSource.tableView(self, numberOfRowsInSection: sectionIndex)
+        var array = [IndexPath]()
+        for index in 0 ..< numberOfRows {
+            array.append(IndexPath(row: index, section: sectionIndex))
+        }
+        return array
+    }
+    
+    @objc private  func handleTapGesture(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view, view.tag >= 0 else {
+            return
+        }
+        toggleSection(view.tag, sectionView: view, animated: true)
+    }
 }
 
 // MARK: UITableViewDataSource
@@ -109,83 +188,3 @@ extension CollapseTableView: UITableViewDelegate {
         return view
     }
 }
-
-// MARK: CollapseTableView methods
-
-extension CollapseTableView {
-    @objc func handleTapGesture(_ sender: UITapGestureRecognizer) {
-        guard let view = sender.view, view.tag >= 0 else {
-            return
-        }
-        toggleSection(view.tag, sectionView: view, animated: true)
-    }
-    
-    func toggleSection(_ sectionIndex: Int, sectionView: UIView, animated: Bool) {
-        if sectionIndex >= sectionStates.count {
-            return
-        }
-        let sectionIsOpen = sectionStates[sectionIndex]
-        let collapseSectionHeader = sectionView as? CollapseSectionHeader
-        if sectionIsOpen {
-            collapseSectionHeader?.handleChangeToCloseState()
-            closeSection(sectionIndex, animated: animated)
-            didTapSectionHeaderView?(sectionIndex, false)
-        } else {
-            collapseSectionHeader?.handleChangeToOpenState()
-            openSection(sectionIndex, animated: animated)
-            didTapSectionHeaderView?(sectionIndex, true)
-        }
-    }
-    
-    func openSection(_ sectionIndex: Int, animated: Bool) {
-        if sectionIndex >= sectionStates.count || sectionStates[sectionIndex] {
-            return
-        }
-        setSectionAtIndex(sectionIndex, open: true)
-        if animated {
-            if let indexPathsToInsert = indexPathsForRowsInSectionAtIndex(sectionIndex) {
-                insertRows(at: indexPathsToInsert, with: .top)
-            }
-        } else {
-            reloadData()
-        }
-    }
-    
-    func closeSection(_ sectionIndex: Int, animated: Bool) {
-        setSectionAtIndex(sectionIndex, open: false)
-        if animated {
-            if let indexPathsToDelete = indexPathsForRowsInSectionAtIndex(sectionIndex) {
-                deleteRows(at: indexPathsToDelete, with: .top)
-            }
-        } else {
-            reloadData()
-        }
-    }
-    
-    func setSectionAtIndex(_ sectionIndex: Int, open: Bool) {
-        if sectionIndex >= sectionStates.count {
-            return
-        }
-        sectionStates[sectionIndex] = open
-    }
-    
-    func indexPathsForRowsInSectionAtIndex(_ sectionIndex: Int) -> [IndexPath]? {
-        if sectionIndex >= sectionStates.count {
-            return nil
-        }
-        let numberOfRows = collapseDataSource.tableView(self, numberOfRowsInSection: sectionIndex)
-        var array = [IndexPath]()
-        for index in 0 ..< numberOfRows {
-            array.append(IndexPath(row: index, section: sectionIndex))
-        }
-        return array
-    }
-    
-    func isOpenSection(_ sectionIndex: Int) -> Bool {
-        if sectionIndex >= sectionStates.count {
-            return false
-        }
-        return sectionStates[sectionIndex]
-    }
-}
-
