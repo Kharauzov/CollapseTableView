@@ -27,7 +27,7 @@ s.source = { :git => "https://github.com/Kharauzov/CollapseTableView.git",
 s.framework = "UIKit"
 
 # 8
-s.source_files = "Source/*.swift"
+s.source_files = "CollapseTableView/**/*.{swift}"
 
 # 10
 s.swift_version = "5.0"
