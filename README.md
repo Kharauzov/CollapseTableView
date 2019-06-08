@@ -34,7 +34,22 @@ import CollapseTableView
 Then you need to subclass your *UITableView* with *CollapseTableView* and set delegate/datasource as you always do. 
 By default, tableView sections are clickable and expandable. 
 
+If you want to disable clickability of sections, there is a special property for this:
+
+```swift
+public var shouldHandleHeadersTap: Bool
+```
+
 So after you implement standard tableView's dataSource/delegate methods for sections, you will be able to open or close the sections with your cells by clicking them.
+
+There're extra tableView methods for work with sections:
+
+```swift
+public func toggleSection(_ sectionIndex: Int, sectionView: UIView, animated: Bool)
+public func openSection(_ sectionIndex: Int, animated: Bool)
+public func closeSection(_ sectionIndex: Int, animated: Bool)
+public func isOpenSection(_ sectionIndex: Int) -> Bool
+```
 
 There's a closure to observe events for opening/closing sections:
 ```swift
