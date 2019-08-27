@@ -60,18 +60,15 @@ open class CollapseTableView: UITableView {
     
     // MARK: Public methods
     
-    public func toggleSection(_ sectionIndex: Int, sectionView: UIView, animated: Bool) {
+    public func toggleSection(_ sectionIndex: Int, animated: Bool) {
         if sectionIndex >= sectionStates.count {
             return
         }
         let sectionIsOpen = sectionStates[sectionIndex]
-        let collapseSectionHeader = sectionView as? CollapseSectionHeader
         if sectionIsOpen {
-            collapseSectionHeader?.handleChangeToCloseState()
             closeSection(sectionIndex, animated: animated)
             didTapSectionHeaderView?(sectionIndex, false)
         } else {
-            collapseSectionHeader?.handleChangeToOpenState()
             openSection(sectionIndex, animated: animated)
             didTapSectionHeaderView?(sectionIndex, true)
         }
@@ -82,6 +79,9 @@ open class CollapseTableView: UITableView {
             return
         }
         setSectionAtIndex(sectionIndex, open: true)
+        if let headerView = headerView(forSection: sectionIndex) as? CollapseSectionHeader {
+            headerView.updateViewForOpenState(animated: true)
+        }
         if animated {
             if let indexPathsToInsert = indexPathsForRowsInSectionAtIndex(sectionIndex) {
                 insertRows(at: indexPathsToInsert, with: .top)
@@ -92,7 +92,13 @@ open class CollapseTableView: UITableView {
     }
     
     public func closeSection(_ sectionIndex: Int, animated: Bool) {
+        if sectionIndex >= sectionStates.count {
+            return
+        }
         setSectionAtIndex(sectionIndex, open: false)
+        if let headerView = headerView(forSection: sectionIndex) as? CollapseSectionHeader {
+            headerView.updateViewForCloseState(animated: true)
+        }
         if animated {
             if let indexPathsToDelete = indexPathsForRowsInSectionAtIndex(sectionIndex) {
                 deleteRows(at: indexPathsToDelete, with: .top)
@@ -134,7 +140,7 @@ open class CollapseTableView: UITableView {
         guard let view = sender.view, view.tag >= 0 else {
             return
         }
-        toggleSection(view.tag, sectionView: view, animated: true)
+        toggleSection(view.tag, animated: true)
     }
 }
 
@@ -181,8 +187,15 @@ extension CollapseTableView: UITableViewDelegate {
                 }
             }
             if !tapGestureFound {
-                view.tag = section
                 view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
+            }
+        }
+        view.tag = section
+        if let collapseSectionHeader = view as? CollapseSectionHeader {
+            if isOpenSection(section) {
+                collapseSectionHeader.updateViewForOpenState(animated: false)
+            } else {
+                collapseSectionHeader.updateViewForCloseState(animated: false)
             }
         }
         return view

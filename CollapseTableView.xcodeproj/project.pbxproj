@@ -19,6 +19,7 @@
 		4919EFE122AC27A200CD5A74 /* CollapseTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922F97122AAE53700967BB5 /* CollapseTableView.framework */; };
 		4919EFE222AC27A200CD5A74 /* CollapseTableView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4922F97122AAE53700967BB5 /* CollapseTableView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4922F97622AAE53700967BB5 /* CollapseTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4922F97422AAE53700967BB5 /* CollapseTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		49F918182312E1BB0075D644 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F918172312E1BB0075D644 /* ReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		4922F97122AAE53700967BB5 /* CollapseTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CollapseTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4922F97422AAE53700967BB5 /* CollapseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollapseTableView.h; sourceTree = "<group>"; };
 		4922F97522AAE53700967BB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49F918172312E1BB0075D644 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		4919EFCC22AC25D400CD5A74 /* CollapseTableViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				49F918172312E1BB0075D644 /* ReusableView.swift */,
 				4919EFCD22AC25D400CD5A74 /* AppDelegate.swift */,
 				4919EFDD22AC263D00CD5A74 /* SectionHeaderView.swift */,
 				4919EFDE22AC263D00CD5A74 /* SectionHeaderView.xib */,
@@ -250,6 +253,7 @@
 				4919EFD022AC25D400CD5A74 /* ViewController.swift in Sources */,
 				4919EFDF22AC263D00CD5A74 /* SectionHeaderView.swift in Sources */,
 				4919EFCE22AC25D400CD5A74 /* AppDelegate.swift in Sources */,
+				49F918182312E1BB0075D644 /* ReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

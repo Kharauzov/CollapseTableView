@@ -17,10 +17,10 @@ public protocol CollapseSectionHeader {
     
     /// Default implementation: rotates `indicatorImageView` in
     /// appropriate direction.
-    func handleChangeToOpenState()
+    func updateViewForOpenState(animated: Bool)
     /// Default implementation: rotates `indicatorImageView` in
     /// appropriate direction.
-    func handleChangeToCloseState()
+    func updateViewForCloseState(animated: Bool)
 }
 
 // MARK: Default implementation of methods and properties.
@@ -32,14 +32,16 @@ extension CollapseSectionHeader {
         return 0.25
     }
     
-    public func handleChangeToOpenState() {
-        UIView.animate(withDuration: imageAnimationDuration) {
+    public func updateViewForOpenState(animated: Bool) {
+        let duration = animated ? imageAnimationDuration : 0
+        UIView.animate(withDuration: duration) {
             self.indicatorImageView.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         }
     }
     
-    public func handleChangeToCloseState() {
-        UIView.animate(withDuration: imageAnimationDuration) {
+    public func updateViewForCloseState(animated: Bool) {
+        let duration = animated ? imageAnimationDuration : 0
+        UIView.animate(withDuration: duration) {
             self.indicatorImageView.transform = CGAffineTransform(rotationAngle: CGFloat(2 * Double.pi))
         }
     }
