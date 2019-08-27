@@ -9,7 +9,7 @@ CollapseTableView enables you to make expandable UITableView's sections with jus
 
 ## Presentation
 <p align="left">
-<img src="https://github.com/Kharauzov/CollapseTableView/blob/master/CollapseTableView.gif" width="250px" height="480px"/>
+<img src="https://github.com/Kharauzov/CollapseTableView/blob/master/collapseTableViewDemo.gif" width="250px" height="472px"/>
 </p>
 
 ## Installation
@@ -45,7 +45,7 @@ So after you implement standard tableView's dataSource/delegate methods for sect
 There're extra tableView methods for work with sections:
 
 ```swift
-public func toggleSection(_ sectionIndex: Int, sectionView: UIView, animated: Bool)
+public func toggleSection(_ sectionIndex: Int, animated: Bool)
 public func openSection(_ sectionIndex: Int, animated: Bool)
 public func closeSection(_ sectionIndex: Int, animated: Bool)
 public func isOpenSection(_ sectionIndex: Int) -> Bool
