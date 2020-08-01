@@ -10,9 +10,9 @@ import UIKit
 
 open class CollapseTableView: UITableView {
     ///
-    private weak var collapseDataSource: UITableViewDataSource!
+    private weak var collapseDataSource: UITableViewDataSource?
     ///
-    private weak var collapseDelegate: UITableViewDelegate!
+    private weak var collapseDelegate: UITableViewDelegate?
     /// Represents opened/closed states of tableView's sections.
     private(set) var sectionStates = [Bool]()
     /// Determines, if section's headerView can be clickable.
@@ -42,10 +42,10 @@ open class CollapseTableView: UITableView {
     }
     
     override open func forwardingTarget(for aSelector: Selector!) -> Any? {
-        if collapseDataSource.responds(to: aSelector) {
+        if collapseDataSource?.responds(to: aSelector) ?? false {
             return collapseDataSource
         }
-        if collapseDelegate.responds(to: aSelector) {
+        if collapseDelegate?.responds(to: aSelector) ?? false {
             return collapseDelegate
         }
         return nil
@@ -125,6 +125,9 @@ open class CollapseTableView: UITableView {
     }
     
     private func indexPathsForRowsInSectionAtIndex(_ sectionIndex: Int) -> [IndexPath]? {
+        guard let collapseDataSource = collapseDataSource else {
+            return nil
+        }
         if sectionIndex >= sectionStates.count {
             return nil
         }
@@ -148,7 +151,7 @@ open class CollapseTableView: UITableView {
 
 extension CollapseTableView: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
-        let numberOfSections = collapseDataSource.numberOfSections?(in: tableView) ?? 0
+        let numberOfSections = collapseDataSource?.numberOfSections?(in: tableView) ?? 0
         while numberOfSections < sectionStates.count {
             sectionStates.removeAll()
         }
@@ -160,13 +163,13 @@ extension CollapseTableView: UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if sectionStates[section] {
-            return collapseDataSource.tableView(tableView, numberOfRowsInSection: section)
+            return collapseDataSource?.tableView(tableView, numberOfRowsInSection: section) ?? 0
         }
         return 0
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return collapseDataSource.tableView(tableView, cellForRowAt: indexPath)
+        return collapseDataSource?.tableView(tableView, cellForRowAt: indexPath) ?? UITableViewCell()
     }
 }
 
@@ -174,7 +177,7 @@ extension CollapseTableView: UITableViewDataSource {
 
 extension CollapseTableView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = collapseDelegate.tableView?(tableView, viewForHeaderInSection: section) else {
+        guard let view = collapseDelegate?.tableView?(tableView, viewForHeaderInSection: section) else {
             return nil
         }
         if shouldHandleHeadersTap {

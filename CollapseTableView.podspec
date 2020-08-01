@@ -6,7 +6,7 @@ s.ios.deployment_target = '10.0'
 s.name = "CollapseTableView"
 s.summary = "CollapseTableView enables to expand sections with cells inside."
 s.requires_arc = true
-s.version = "1.0.2"
+s.version = "1.0.3"
 s.license = { :type => "MIT", :file => "LICENSE" }
 s.author = { "Serhii Kharauzov" => "serhii.kharauzov@gmail.com" }
 s.homepage = "https://github.com/Kharauzov/CollapseTableView"
